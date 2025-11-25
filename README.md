@@ -1,26 +1,29 @@
 # Metrics and Insight Reporting Toolkit
 
-Small analytics toolkit that turns Superstore style transactional data into reusable metrics and a markdown insights report.
+This project is an end to end analytics solution that combines a Python based metrics engine with a three page Power BI dashboard. Together, they form a complete workflow for generating, analyzing, and visualizing retail style revenue data using a synthetic Superstore dataset.
 
-## Features
+The toolkit demonstrates practical data analysis, metric design, dashboarding, and reporting techniques used by data analysts and BI professionals.
 
-- Generates a synthetic Superstore style dataset
-- Computes core revenue metrics
+---
+
+## Project Components
+
+### 1. Synthetic Data Generation (`/data`)
+- `generate_superstore_data.py` creates realistic retail transactions with sales, profit, category, region, segment, and discount fields.
+- `superstore_sample_large.csv` contains a generated sample used across the toolkit.
+- Fully reproducible with adjustable row counts.
+
+### 2. Python Metrics Engine (`/src`)
+The Python pipeline:
+- Loads and validates the dataset
+- Computes core business metrics:
   - Daily revenue
-  - Revenue by customer segment, category, and region
-  - Summary KPIs such as total revenue and average order value
-- Produces a markdown report for fast review or sharing
+  - Revenue by segment, category, and region
+  - Summary KPIs (total revenue, total orders, AOV)
+- Generates a Markdown insights report that can be viewed directly in GitHub.
+- Designed with clear modular structure for real analytical workflows.
 
-## Project structure
-
-- `data/generate_superstore_data.py` script to generate sample data
-- `src/metrics.py` metric computation functions
-- `src/reporting.py` report generation helpers
-- `src/main.py` command line entry point
-
-## Setup
-
-Create a virtual environment (optional but recommended), then install dependencies:
+Run the report:
 
 ```bash
-pip install -r requirements.txt
+python -m src.main --input data/superstore_sample_large.csv --output reports/metrics_report.md
