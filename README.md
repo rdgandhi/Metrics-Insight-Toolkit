@@ -1,29 +1,29 @@
-# Metrics and Insight Reporting Toolkit
+# Merchandising Metrics and Insight Toolkit (Power BI + Governed Metrics)
 
-This project is an end to end analytics solution that combines a Python based metrics engine with a three page Power BI dashboard. Together, they form a complete workflow for generating, analyzing, and visualizing retail style revenue data using a synthetic Superstore dataset.
+End to end merchandising analytics project that generates a retail star schema dataset, computes governed KPIs, produces stakeholder-ready artifacts, and supports a three page Power BI dashboard.
 
-The toolkit demonstrates practical data analysis, metric design, dashboarding, and reporting techniques used by data analysts and BI professionals.
+## What it does
+1. Generates a merchandising star schema dataset:
+   - FactSales, FactInventorySnapshot
+   - DimDate, DimSKU, DimStore, DimChannel
+2. Computes governed merchandising KPIs:
+   - Sales $, Units, GM %, Markdown Rate %, AOV
+   - Sell-through %, Weeks of Supply (WOS), Stockout proxy
+3. Produces artifacts automatically:
+   - `reports/merch_kpi_report.md`
+   - `reports/metric_definitions.md`
+   - `docs/one_pager.md`
+4. Power BI support:
+   - DAX measures and model instructions in `/powerbi`
 
----
-
-## Project Components
-
-### 1. Synthetic Data Generation (`/data`)
-- `generate_superstore_data.py` creates realistic retail transactions with sales, profit, category, region, segment, and discount fields.
-- `superstore_sample_large.csv` contains a generated sample used across the toolkit.
-- Fully reproducible with adjustable row counts.
-
-### 2. Python Metrics Engine (`/src`)
-The Python pipeline:
-- Loads and validates the dataset
-- Computes core business metrics:
-  - Daily revenue
-  - Revenue by segment, category, and region
-  - Summary KPIs (total revenue, total orders, AOV)
-- Generates a Markdown insights report that can be viewed directly in GitHub.
-- Designed with clear modular structure for real analytical workflows.
-
-Run the report:
-
+## Run end to end
+Install:
 ```bash
-python -m src.main --input data/superstore_sample_large.csv --output reports/metrics_report.md
+pip install -r requirements.txt
+
+
+## Generate Data
+python data/generate_merchandising_data.py --rows_orders 30000 --n_skus 250 --n_stores 30 --out_dir data_out
+
+## Build artifacts:
+python -m src.build_artifacts --data_dir data_out
